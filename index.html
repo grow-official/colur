@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            font-family: Arial, sans-serif;
+           
+   
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 20px ;
+            gap: 40px;
+               background-image: url('assets/bg2.jpg'); /* Add your image path here */
+    background-position: center; /* Centers the background image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+
+        }
+
+        .carousel {
+            width: 100%;
+        }
+
+        .carousel .carousel-inner,
+        .carousel .carousel-item,
+        .video-container iframe {
+            height: 100%;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Use repeat for cleaner syntax */
+            gap: 10px;
+            margin-bottom: 50px;
+        }
+
+        .grid-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            font-size: 18px;
+            overflow: hidden;
+            padding: 10px;
+            background-color: #424242;
+        }
+
+        .grid-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Use cover to fill the box */
+            border-radius: 20px;
+            display: block; /* Prevents a small space below the image */
+        }
+
+        .banner-container {
+            position: relative;
+            width: 100%;
+            padding: 10px;
+            background-color: #424242;
+            margin: 20px 0;
+            border-radius: 20px;
+            overflow: hidden; /* Ensure image stays within rounded corners */
+        }
+
+        .banner-container img {
+            width: 100%; /* Use 100% instead of 100vw */
+            display: block;
+            object-fit: cover; /* Use cover for banners too */
+            border-radius: 20px;
+        }
+
+        .view-button {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1; /* Ensure button is above the image */
+        }
+
+        .view-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        @media (min-width: 768px) {  /* Adjust breakpoint as needed */
+    .container {
+        max-width: 400px; /* Set the desired max-width for desktop */
+        margin: 0 auto; /* Center the container on desktop */
+    }
+
+    #bannerCarousel {
+        max-width: 400px; /* Match container width */
+        margin: 0 auto; /* Center the carousel */
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* Maintain 2 columns on desktop */
+        max-width: 400px; /* Match container width */
+        margin: 0 auto; /* Center the grid */
+    }
+
+    #searchInput {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    #register, #submitButton, #clearButton {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+
+}
+
+/* Existing media queries for smaller screens (mobile) */
+@media (max-width: 767px) { /* Adjust breakpoint as needed */
+    .container {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        
+    }
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* Maintain 2 columns on mobile */
+    }
+    #searchInput {
+        width: 95%;
+    }
+    #register, #submitButton, #clearButton {
+        width: 95%;
+    }
+}
+/* ✅ Winning Notification (Now Fully Responsive) */
+.winner-box {
+            height: 30px;
+            font-weight: bold;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .winner-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: white;
+            opacity: 1;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            font-size: 14px;
+        }
+        .winner-text span {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        .scroll-up {
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        .scroll-reset {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        .scroll-in {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ✅ Fake Comments (Now Mobile Optimized) */
+        .comment-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: -19px;
+            padding: 10px;
+            background: #292929;
+            border-radius: 8px;
+        }
+        .comment-box img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .comment-content {
+            flex-grow: 1;
+        }
+        .comment-username {
+            font-weight: bold;
+            color: #00aaff;
+            font-size: 14px;
+        }
+        .comment-text {
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        /* ✅ Comment Input */
+        .comment-form {
+            margin-top: 15px;
+            display: flex;
+        }
+        .comment-form input {
+            flex: 1;
+            padding: 8px;
+            background: #333;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            outline: none;
+            font-size: 12px;
+        }
+        .comment-form button {
+            background: #00aaff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        .fake-message {
+            color: #00ff00;
+            margin-top: 10px;
+            display: none;
+            font-size: 12px;
+        }
+
+        /* ✅ Media Query for Mobile */
+        @media (max-width: 400px) {
+            .winner-text {
+                font-size: 12px; /* Smaller text for mobile */
+            }
+            .comment-box {
+                padding: 8px;
+            }
+            .comment-text {
+                font-size: 11px;
+            }
+            .comment-form input, .comment-form button {
+                font-size: 11px;
+                padding: 6px;
+            }
+        }
+        h1 {
+    color: white;  /* ✅ टेक्स्ट को सफेद कर दिया */
+    text-align: center;
+    font-size: 16px;  /* ✅ टेक्स्ट साइज बैलेंस किया */
+    margin-bottom: 10px;  /* ✅ थोड़ा नीचे स्पेस दिया */
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="banner-container">
+                        <img src="assets/banner2.jpg" alt="Banner 1" class="img-fluid">
+                          <a href="https://t.me/Aonetecno"><button class="view-button">Telegram</button></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="banner-container">
+                        <img src="assets/banner1.jpg" alt="Banner 2" class="img-fluid">
+                         <a href="https://www.youtube.com/@SelfEarner2613"><button class="view-button">Youtube</button></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="banner-container">
+                        <img src="assets/banner3.jpg" alt="Banner 3" class="img-fluid">
+                       <a href="https://www.instagram.com/selfearner2025"><button class="view-button">instagram</button></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="banner-container">
+                        <img src="assets/banner4.jpg" alt="Banner 3" class="img-fluid">
+                      <a href="https://linkbio.co/6040409R5pIzA"><button class="view-button">Profile</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="grid-container">
+            <a href="okwin.html">
+                <div class="grid-box"><img src="assets/OKWIN.jpg" alt=""></div>
+            </a>
+            <a href="bigdaddy.html">
+                <div class="grid-box"><img src="assets/big_daddy.jpg" alt=""></div>
+            </a>
+            <a href="tc.html">
+                <div class="grid-box"><img src="assets/TIRANGA.jpg" alt=""></div>
+            </a>
+            <a href="mantimall.html">
+                <div class="grid-box"><img src="assets/Mantrimall.jpg" alt=""></div>
+            </a>
+            <a href="deltin.html">
+                <div class="grid-box"><img src="assets/DELTIN.jpg" alt=""></div>
+            </a>
+            <a href="55club.html">
+                <div class="grid-box"><img src="assets/55CLUB.jpg" alt=""></div>
+            </a>
+            <a href="dgclub.html">
+                <div class="grid-box"><img src="assets/dgclub.jpg" alt=""></div>
+            </a>
+            <a href="6club44.html">
+                <div class="grid-box"><img src="assets/6club44.jpg" alt=""></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 🔥 Auto Scrolling Winner Notification -->
+        <div class="winner-box">
+            <div class="winner-text scroll-in" id="winner-text">Loading...</div>
+        </div>
+
+        <h1>Customer Reviews <i class="fas fa-star"></i></h1>
+
+        <!-- Fake Comments -->
+        <div class="comment-box">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            <div class="comment-content">
+                <div class="comment-username">Rohan Kumar</div>
+                <div class="comment-text">भाई आपकी प्रिडिक्शन 90% सही निकलती है! मज़ा आ गया! ❤️</div>
+            </div>
+        </div>
+
+        <div class="comment-box">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+            <div class="comment-content">
+                <div class="comment-username">Priya Sharma</div>
+                <div class="comment-text">कल 500₹ लगाए थे, 1500₹ जीत गई! थैंक यू भाई! 🔥</div>
+            </div>
+        </div>
+
+        <div class="comment-box">
+            <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="User">
+            <div class="comment-content">
+                <div class="comment-username">Aniket Singh</div>
+                <div class="comment-text">आपकी ट्रिक से रोज़ अच्छा खासा प्रॉफिट हो रहा है! 🤩</div>
+            </div>
+        </div>
+
+        <div class="comment-box">
+            <img src="https://randomuser.me/api/portraits/women/25.jpg" alt="User">
+            <div class="comment-content">
+                <div class="comment-username">Simran Kaur</div>
+                <div class="comment-text">बिना कोई झंझट सीधा पैसा! क्या कमाल की वेबसाइट है! 🤑</div>
+            </div>
+        </div>
+
+        <div class="comment-box">
+            <img src="https://randomuser.me/api/portraits/men/50.jpg" alt="User">
+            <div class="comment-content">
+                <div class="comment-username">Vikas Rajput</div>
+                <div class="comment-text">सिर्फ 300₹ से शुरू किया और 2000₹ जीत चुका हूँ! भाई लव यू! ❤️</div>
+            </div>
+        </div>
+
+        <!-- Fake Comment Box -->
+        <div class="comment-form">
+            <input type="text" id="user-comment" placeholder="Write a comment...">
+            <button onclick="fakeComment()">Post <i class="fas fa-paper-plane"></i></button>
+        </div>
+
+        <!-- Fake Success Message -->
+        <p class="fake-message" id="fake-message">आपका कमेंट पोस्ट हो गया! ✅ रजिस्ट्रेशन के बाद आपका कॉमेंट दिखेगा</p>
+    </div>
+
+    <script>
+        function fakeComment() {
+            let commentBox = document.getElementById("user-comment");
+            let fakeMessage = document.getElementById("fake-message");
+            
+            if (commentBox.value.trim() !== "") {
+                fakeMessage.style.display = "block";
+                commentBox.value = "";
+                
+                setTimeout(() => {
+                    fakeMessage.style.display = "none";
+                }, 3000);
+            }
+        }
+
+        // 🔥 Auto Scrolling Winner Notification with Scroll-Up Animation
+        const winners = [
+            "Rohan Kumar ने <span>+₹1500</span> जीते!",
+            "Priya Sharma ने <span>+₹2000</span> जीते!",
+            "Aniket Singh ने <span>+₹5000</span> जीते!",
+            "Simran Kaur ने <span>+₹1000</span> जीते!",
+            "Vikas Rajput ने <span>+₹2500</span> जीते!"
+        ];
+
+        let winnerBox = document.getElementById("winner-text");
+        let index = 0;
+
+        function showWinner() {
+            winnerBox.classList.add("scroll-up");
+            
+            setTimeout(() => {
+                winnerBox.classList.remove("scroll-up");
+                winnerBox.classList.add("scroll-reset");
+                winnerBox.innerHTML = winners[index];
+                index = (index + 1) % winners.length;
+            }, 500);
+
+            setTimeout(() => {
+                winnerBox.classList.remove("scroll-reset");
+                winnerBox.classList.add("scroll-in");
+            }, 600);
+        }
+
+        setInterval(showWinner, 2500);
+        showWinner();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
