@@ -300,6 +300,47 @@
             </div>
         </div>
 
+        <div class="winning-ticker">
+            <div class="winning-text" id="winningText">Loading...</div>
+        </div>
+        
+        <style>
+        /* ✅ Dark Theme Styling */
+        .winning-ticker {
+            width: 100%;
+            background: #11111100; /* Dark Background */
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 1px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 30px; /* Fixed Height */
+        }
+        
+        /* ✅ Animation: Fade In & Move Up */
+        @keyframes fadeMove {
+            0% { opacity: 0; transform: translateY(10px); }  /* नीचे से आए */
+            50% { opacity: 1; transform: translateY(0); }    /* पूरी तरह दिखे */
+            100% { opacity: 0; transform: translateY(-10px); } /* ऊपर गायब हो जाए */
+        }
+        
+        .winning-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            animation: fadeMove 2s ease-in-out infinite;
+        }
+        
+        /* ✅ Green Winning Amount */
+        .green-amount {
+            color: #00ff00; /* Bright Green */
+            font-weight: bold;
+        }
+        </style>
+
+
 
         <div class="grid-container">
             <a href="okwin.html">
@@ -332,50 +373,33 @@
     
 
     <script>
-        function fakeComment() {
-            let commentBox = document.getElementById("user-comment");
-            let fakeMessage = document.getElementById("fake-message");
-            
-            if (commentBox.value.trim() !== "") {
-                fakeMessage.style.display = "block";
-                commentBox.value = "";
-                
-                setTimeout(() => {
-                    fakeMessage.style.display = "none";
-                }, 3000);
-            }
-        }
-
-        // 🔥 Auto Scrolling Winner Notification with Scroll-Up Animation
+        // ✅ Winning Data (Names + Amounts with Font Awesome Icons)
         const winners = [
-            "Rohan Kumar ने <span>+₹1500</span> जीते!",
-            "Priya Sharma ने <span>+₹2000</span> जीते!",
-            "Aniket Singh ने <span>+₹5000</span> जीते!",
-            "Simran Kaur ने <span>+₹1000</span> जीते!",
-            "Vikas Rajput ने <span>+₹2500</span> जीते!"
+            "<i class='fa-solid fa-trophy'></i> Rohan Kumar ने <span class='green-amount'>₹500</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Priya Sharma ने <span class='green-amount'>₹200</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Aniket Singh ने <span class='green-amount'>₹5000</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Simran Kaur ने <span class='green-amount'>₹1000</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Vikas Rajput ने <span class='green-amount'>₹700</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Rahul Mehta ने <span class='green-amount'>₹1200</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Ayesha Sheikh ने <span class='green-amount'>₹300</span> जीते!",
+            "<i class='fa-solid fa-trophy'></i> Neha Jain ने <span class='green-amount'>₹4500</span> जीते!"
         ];
-
-        let winnerBox = document.getElementById("winner-text");
+        
+        let ticker = document.getElementById("winningText");
         let index = 0;
-
-        function showWinner() {
-            winnerBox.classList.add("scroll-up");
-            
-            setTimeout(() => {
-                winnerBox.classList.remove("scroll-up");
-                winnerBox.classList.add("scroll-reset");
-                winnerBox.innerHTML = winners[index];
-                index = (index + 1) % winners.length;
-            }, 500);
-
-            setTimeout(() => {
-                winnerBox.classList.remove("scroll-reset");
-                winnerBox.classList.add("scroll-in");
-            }, 600);
+        
+        // ✅ Auto Change Text Every 2 Seconds (Smooth Effect)
+        function updateWinningText() {
+            ticker.innerHTML = winners[index]; 
+            index = (index + 1) % winners.length;
         }
+        
+        // ✅ Set Interval for Smooth Auto Change
+        setInterval(updateWinningText, 2000);
+        
+        // ✅ First Load
+        updateWinningText();
 
-        setInterval(showWinner, 2500);
-        showWinner();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
